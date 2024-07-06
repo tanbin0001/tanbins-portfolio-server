@@ -8,70 +8,43 @@ import { ProjectModel } from "./project.model";
 
 
 const addProjectIntoDB = async (payload: TProject) => {
-  console.log(payload);
   const result = await ProjectModel.create(payload)
   return result;
 };
 
 
-// const getAllProductsFromDb = async (filters: TFilterOptions) => {
+const getAllProjectsFromDB = async () => {
+  const result = await ProjectModel.find()
+  return result
 
 
+};
 
-//   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-//   const filterCriteria: any = {};
-//   if (filters.sportType) {
-//     filterCriteria.sportType = filters.sportType;
-//   }
+const updateProject = async (_id: string, payload: Partial<TProject>) => {
+  console.log('******************************');
+  console.log('Updating project with ID:', _id);
+  console.log('Payload:', payload);
+  console.log('******************************');
 
-//   if (filters.brand) {
-//     filterCriteria.brand = { $regex: new RegExp(filters.brand, 'i') };
-//   }
+  try {
+    const result = await ProjectModel.findOneAndUpdate(
+      { _id },
+      payload,
+      { new: true }
+    );
 
-//   if (filters.size) {
-//     filterCriteria.size = filters.size;
-//   }
+    if (!result) {
+      console.error('No document found with that ID');
+      return null;
+    }
 
-//   if (filters.minPrice && filters.maxPrice) {
-//     filterCriteria.price = { $gte: filters.minPrice, $lte: filters.maxPrice };
-//   }
-
-
-//   if (filters.material) {
-//     filterCriteria.material = filters.material;
-//   }
-
-//   if (filters.color) {
-//     filterCriteria.color = filters.color;
-//   }
-
-//   if (filters.condition) {
-//     filterCriteria.condition = filters.condition;
-//   }
-
-//   const result = await SportsItemModel.find(filterCriteria);
-//   //  isCheckedToDelete property based on quantity
-//   const updatedResult = result.map(item => ({
-//     ...item.toObject(),
-//     isCheckedToDelete: item.quantity === 0,
-//   }));
-
-
-//   const filteredResult = updatedResult.filter(item => !item.isCheckedToDelete);
-
-//   return filteredResult;
-// };
-
-// const updateProductIntoDB = async (
-//   _id: string,
-//   payload: Partial<TSportsItem>,
-// ) => {
-//   const result = await SportsItemModel.findOneAndUpdate({ _id }, payload, {
-//     new: true,
-//   })
-
-//   return result;
-// }
+    console.log('Update result:', result);
+    return result;
+  } catch (error) {
+    console.error('Error updating project:', error);
+    throw error;
+  }
+};
 
 
 // const deleteSingleItemFromDB = async (id: string) => {
@@ -85,6 +58,8 @@ const addProjectIntoDB = async (payload: TProject) => {
 
 export const ProjectServices = {
   addProjectIntoDB,
+  getAllProjectsFromDB,
+  updateProject
 
 }
 

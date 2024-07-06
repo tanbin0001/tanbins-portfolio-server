@@ -1,6 +1,6 @@
 import catchAsync from "../../../utils/catchAsync";
 import sendResponse from "../../../utils/sendResponse";
-import { ProjectServices } from "./project.service";
+import { BlogServices } from "./blog.service";
 
 
 
@@ -9,47 +9,41 @@ import { ProjectServices } from "./project.service";
 
 
 
-
-
-
-
-
-const addProduct = catchAsync(async (req, res) => {
-    console.log(req);
-    const result = await ProjectServices.addProjectIntoDB(req.body);
-
+const addBlog = catchAsync(async (req, res) => {
+    const result = await BlogServices.addBlogIntoDB(req.body);
     sendResponse(res, {
         statusCode: 201,
         success: true,
-        message: 'Project Added Successfully',
+        message: 'Blog Added Successfully',
         data: result
     })
 }
 
 );
-const getAllProjects = catchAsync(async (req, res) => {
-    const result = await ProjectServices.getAllProjectsFromDB();
+
+
+const getAllBlogs = catchAsync(async (req, res) => {
+    const result = await BlogServices.getAllBlogs();
     sendResponse(res, {
         statusCode: 200,
         success: true,
-        message: 'All projects retrieved successfully!',
+        message: 'All blogs retrieved successfully!',
         data: result
     })
-})
-const updateProject = catchAsync(async (req, res) => {
+}
 
+);
+// const updateProduct = catchAsync(async (req, res) => {
+//     const { _id } = req.params;
 
-
-    const { _id } = req.params;
-
-    const result = await ProjectServices.updateProject(_id, req.body);
-    sendResponse(res, {
-        statusCode: 201,
-        success: true,
-        message: 'Project updated successfully!',
-        data: result
-    })
-});
+//     const result = await ProductServices.updateProductIntoDB(_id, req.body);
+//     sendResponse(res, {
+//         statusCode: 201,
+//         success: true,
+//         message: 'Product updated successfully!',
+//         data: result
+//     })
+// });
 
 // const deleteProduct = catchAsync(async (req, res) => {
 //     const { id } = req.params;
@@ -74,8 +68,7 @@ const updateProject = catchAsync(async (req, res) => {
 // });
 
 
-export const ProjectController = {
-    addProduct,
-    getAllProjects,
-    updateProject
+export const BlogController = {
+    addBlog,
+    getAllBlogs
 }

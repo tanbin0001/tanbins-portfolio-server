@@ -13,6 +13,7 @@ const projectSchema = new Schema<TProject>({
     githubCodeLink: { type: String, required: true },
     description: { type: String, required: true },
 
+
 })
 
 export const ProjectModel = model<TProject>('SportsItem', projectSchema);

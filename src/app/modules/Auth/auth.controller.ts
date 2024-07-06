@@ -11,8 +11,8 @@ import { AuthServices } from "./auth.service";
 
 
 
-const getAllUsers =catchAsync(async(req, res) => {
-    const result =  await  AuthServices.getAllUsersFromDB();
+const getAllUsers = catchAsync(async (req, res) => {
+    const result = await AuthServices.getAllUsersFromDB();
     sendResponse(res, {
         statusCode: 200,
         success: true,
@@ -23,8 +23,8 @@ const getAllUsers =catchAsync(async(req, res) => {
 
 )
 
-const registerUser = catchAsync(async(req, res) => {
-    const result =  await  AuthServices.registerUserIntoDb(req.body);
+const registerUser = catchAsync(async (req, res) => {
+    const result = await AuthServices.registerUserIntoDb(req.body);
     sendResponse(res, {
         statusCode: 201,
         success: true,
@@ -34,8 +34,10 @@ const registerUser = catchAsync(async(req, res) => {
 }
 
 )
-const loginUser = catchAsync(async(req, res) => {
-    const result =  await  AuthServices.loginUserIntoDb(req.body);
+const loginUser = catchAsync(async (req, res) => {
+    console.log(req.body);
+
+    const result = await AuthServices.loginUserIntoDb(req.body);
 
     sendResponse(res, {
         statusCode: httpStatus.OK,
@@ -47,11 +49,11 @@ const loginUser = catchAsync(async(req, res) => {
 
 )
 
- 
-const changeUserRole = catchAsync(async(req, res) => {
-    const {_id} = req.params;
 
-    const result =  await  AuthServices.changeUserRole(_id, req.body);
+const changeUserRole = catchAsync(async (req, res) => {
+    const { _id } = req.params;
+
+    const result = await AuthServices.changeUserRole(_id, req.body);
     sendResponse(res, {
         statusCode: 201,
         success: true,
@@ -62,10 +64,10 @@ const changeUserRole = catchAsync(async(req, res) => {
 
 
 
-export const  AuthControllers = {
-    getAllUsers,    
-registerUser,
-loginUser,
-changeUserRole
- 
+export const AuthControllers = {
+    getAllUsers,
+    registerUser,
+    loginUser,
+    changeUserRole
+
 }
